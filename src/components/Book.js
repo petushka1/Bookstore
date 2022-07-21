@@ -1,4 +1,4 @@
-import { PropTypes } from 'reaprop-types';
+import { PropTypes } from 'prop-types';
 import styles from './Book.module.css';
 
 const Book = (props) => {
