@@ -4,6 +4,7 @@ import { addBook } from '../redux/books/books';
 
 const NewBook = () => {
   const dispatch = useDispatch();
+
   const [book, setBook] = useState({
     title: '',
     author: '',
@@ -18,22 +19,24 @@ const NewBook = () => {
   };
 
   const submit = (e) => {
-    e.preventDeafault();
+    e.preventDefault();
     if (book.title && book.author) {
-      const book = {
+      const newBook = {
         title: book.title,
         author: book.author,
       };
-      dispatch(addBook(book));
+      e.target.reset();
+      dispatch(addBook(newBook));
     }
   };
+
   return (
     <>
       <main>
         <h2>Add New Book</h2>
         <form onSubmit={submit}>
-          <input type="text" id="title" name="title" placeholder="add title.." />
-          <input type="text" id="author" name="author" placeholder="add author.." />
+          <input type="text" id="title" name="title" onChange={readUserInput} placeholder="add title.." />
+          <input type="text" id="author" name="author" onChange={readUserInput} placeholder="add author.." />
           <button type="submit">ADD BOOK</button>
         </form>
       </main>

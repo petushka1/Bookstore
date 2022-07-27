@@ -1,5 +1,5 @@
 // import { createSlice } from '@reduxjs/toolkit';
-import { v4 as uid } from 'react-uuid';
+import uuid from 'react-uuid';
 
 // action types
 const ADD = 'BOOK_ADDED';
@@ -8,7 +8,7 @@ const REMOVE = 'BOOK_REMOVED';
 // Action creators
 export const addBook = ({ title, author }) => ({
   type: ADD,
-  id: uid(),
+  id: uuid(),
   title,
   author,
 });
@@ -71,7 +71,7 @@ const booksReducer = (state = [
         getFromAction(action),
       ];
     case REMOVE:
-      return state.filter((book) => book.is !== action.id);
+      return state.filter((book) => book.id !== action.id);
 
     default:
       return state;

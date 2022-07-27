@@ -4,7 +4,7 @@ import {
   Routes,
   Route,
 } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Books from './components/Books';
 import Categories from './components/Categories';
 import Header from './components/Header';
@@ -12,7 +12,7 @@ import styles from './App.module.css';
 
 const App = () => {
   const state = useSelector((state) => state);
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   return (
     <div className={styles.app}>
       <Router>
