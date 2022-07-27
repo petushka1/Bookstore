@@ -63,7 +63,7 @@ const booksReducer = (state = [
     title: 'book 2',
     author: 'author 2',
   },
-], action = []) => {
+], action) => {
   switch (action.type) {
     case ADD:
       return [

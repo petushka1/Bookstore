@@ -15,6 +15,7 @@ const Books = (props) => {
               key={book.id}
               author={book.author}
               title={book.title}
+              id={book.id}
             />
           ))}
         </div>
