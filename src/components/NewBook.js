@@ -1,13 +1,14 @@
+import uuid from 'react-uuid';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addBook } from '../redux/books/books';
+import { postBook } from '../redux/books/books';
 
 const NewBook = () => {
   const dispatch = useDispatch();
-
   const [book, setBook] = useState({
     title: '',
     author: '',
+    category: '',
   });
 
   const readUserInput = (e) => {
@@ -20,13 +21,16 @@ const NewBook = () => {
 
   const submit = (e) => {
     e.preventDefault();
-    if (book.title && book.author) {
+    const id = uuid();
+    if (book.title && book.author && book.category) {
       const newBook = {
+        item_id: id,
         title: book.title,
         author: book.author,
+        category: book.category,
       };
       e.target.reset();
-      dispatch(addBook(newBook));
+      dispatch(postBook(newBook));
     }
   };
 
@@ -37,6 +41,7 @@ const NewBook = () => {
         <form onSubmit={submit}>
           <input type="text" id="title" name="title" onChange={readUserInput} placeholder="add title.." />
           <input type="text" id="author" name="author" onChange={readUserInput} placeholder="add author.." />
+          <input type="text" id="category" name="category" onChange={readUserInput} placeholder="add category.." />
           <button type="submit">ADD BOOK</button>
         </form>
       </main>

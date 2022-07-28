@@ -1,69 +1,39 @@
-// import { createSlice } from '@reduxjs/toolkit';
-import uuid from 'react-uuid';
+/* eslint-disable camelcase */
+const URL = 'https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/ewYk4YjZVq8pYtMAfktj/books';
 
 // action types
 const ADD = 'BOOK_ADDED';
 const REMOVE = 'BOOK_REMOVED';
+const READ = 'BOOKS_RETRIEVED';
 
 // Action creators
-export const addBook = ({ title, author }) => ({
+export const addBook = ({
+  item_id, title, author, category,
+}) => ({
   type: ADD,
-  id: uuid(),
+  item_id,
   title,
   author,
+  category,
 });
 
-export const removeBook = (id) => ({
+export const removeBook = (item_id) => ({
   type: REMOVE,
-  id,
+  item_id,
 });
 
-const getFromAction = ({ id, title, author }) => ({
-  id, title, author,
+export const readBooks = (books) => ({
+  type: READ,
+  books,
 });
 
-/*
-const booksSlice = createSlice({
-  name: 'books',
-  initialState: [
-    {
-      id: 1,
-      title: 'book 1',
-      author: 'author 1',
-    },
-    {
-      id: 2,
-      title: 'book 2',
-      author: 'author 2',
-    }
-  ],
-  reducers: {
-    addBookReducer(state, action) {
-      state.push({
-        id: action.payload.id,
-        title: action.payload.title,
-        author: action.payload.author,
-      })
-    },
-    removeBookReducer(state, action) {
-      state.filter((book) => book.id !== action.payload.id);
-    }
-  }
+const getFromAction = ({
+  item_id, title, author, category,
+}) => ({
+  item_id, title, author, category,
 });
-*/
 
-const booksReducer = (state = [
-  {
-    id: 1,
-    title: 'book 1',
-    author: 'author 1',
-  },
-  {
-    id: 2,
-    title: 'book 2',
-    author: 'author 2',
-  },
-], action) => {
+const booksReducer = (state = [], action) => {
   switch (action.type) {
     case ADD:
       return [
@@ -71,11 +41,56 @@ const booksReducer = (state = [
         getFromAction(action),
       ];
     case REMOVE:
-      return state.filter((book) => book.id !== action.id);
+      return state.filter((book) => book.item_id !== action.item_id);
+
+    case READ:
+      return action.books;
 
     default:
       return state;
   }
+};
+
+export const fetchBooks = () => async (dispatch) => {
+  await fetch(URL)
+    .then((res) => res.json())
+    .then((books) => {
+      const BookList = [];
+      Object.keys(books).forEach((key) => {
+        BookList.push({
+          item_id: key,
+          title: books[key][0].title,
+          author: books[key][0].author,
+          category: books[key][0].category,
+        });
+      });
+      dispatch(readBooks(BookList));
+    });
+};
+
+export const postBook = (book) => async (dispatch) => {
+  await fetch(URL, {
+    method: 'POST',
+    body: JSON.stringify(book),
+    headers: {
+      'Content-type': 'application/json; charset=UTF-8',
+    },
+  })
+    .then(() => {
+      dispatch(addBook(book));
+    });
+};
+
+export const deleteBook = (id) => async (dispatch) => {
+  await fetch(`${URL}/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-type': 'application/json; charset=UTF-8',
+    },
+  })
+    .then(() => {
+      dispatch(removeBook(id));
+    });
 };
 
 export default booksReducer;
