@@ -4,15 +4,21 @@ import {
   Routes,
   Route,
 } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect } from 'react';
 import Books from './components/Books';
 import Categories from './components/Categories';
 import Header from './components/Header';
 import styles from './App.module.css';
+import { fetchBooks } from './redux/books/books';
 
 const App = () => {
   const state = useSelector((state) => state);
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  useEffect(() => async () => {
+    await dispatch(fetchBooks());
+  }, []);
+
   return (
     <div className={styles.app}>
       <Router>
