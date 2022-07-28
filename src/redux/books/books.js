@@ -8,11 +8,12 @@ const REMOVE = 'BOOK_REMOVED';
 const READ = 'BOOKS_RETRIEVED';
 
 // Action creators
-export const addBook = ({ title, author }) => ({
+export const addBook = ({ title, author, category }) => ({
   type: ADD,
   item_id: uuid(),
   title,
   author,
+  category,
 });
 
 export const removeBook = (item_id) => ({
@@ -25,8 +26,8 @@ export const readBooks = (books) => ({
   books,
 });
 
-const getFromAction = ({ title, author }) => ({
-  title, author,
+const getFromAction = ({ item_id, title, author, category }) => ({
+  item_id, title, author, category
 });
 
 const booksReducer = (state = [], action) => {
@@ -64,16 +65,17 @@ export const fetchBooks = () => async (dispatch) => {
     })
 }
 
-export const postBook = async (book) => {
+export const postBook = (book) => async (dispatch) => {
   await fetch(URL, {
     method: 'POST',
     body: JSON.stringify(book),
     headers: {
       'Content-type': 'application/json; charset=UTF-8',
     },
-})
-.then(() => dispatch(addBook(book)));
-}
-
+  })
+    .then(() => {
+      dispatch(addBook(book));
+    });
+};
 
 export default booksReducer;

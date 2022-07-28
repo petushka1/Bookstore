@@ -15,7 +15,7 @@ const Books = (props) => {
               key={book.item_id}
               author={book.author}
               title={book.title}
-              id={book.item_id}
+              item_id={book.item_id}
             />
           ))}
         </div>

@@ -27,7 +27,7 @@ const Book = (props) => {
 };
 
 Book.propTypes = {
-  item_id: PropTypes.number.isRequired,
+  item_id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   author: PropTypes.string.isRequired,
 };

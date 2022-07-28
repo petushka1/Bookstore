@@ -8,6 +8,7 @@ const NewBook = () => {
   const [book, setBook] = useState({
     title: '',
     author: '',
+    category: '',
   });
 
   const readUserInput = (e) => {
@@ -24,6 +25,7 @@ const NewBook = () => {
       const newBook = {
         title: book.title,
         author: book.author,
+        category: book.category,
       };
       e.target.reset();
       dispatch(postBook(newBook));
@@ -37,6 +39,7 @@ const NewBook = () => {
         <form onSubmit={submit}>
           <input type="text" id="title" name="title" onChange={readUserInput} placeholder="add title.." />
           <input type="text" id="author" name="author" onChange={readUserInput} placeholder="add author.." />
+          <input type="text" id="category" name="category" onChange={readUserInput} placeholder="add category.." />
           <button type="submit">ADD BOOK</button>
         </form>
       </main>
