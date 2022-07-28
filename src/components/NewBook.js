@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addBook } from '../redux/books/books';
+import { postBook } from '../redux/books/books';
 
 const NewBook = () => {
   const dispatch = useDispatch();
@@ -26,7 +26,7 @@ const NewBook = () => {
         author: book.author,
       };
       e.target.reset();
-      dispatch(addBook(newBook));
+      dispatch(postBook(newBook));
     }
   };
 

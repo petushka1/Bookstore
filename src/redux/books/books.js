@@ -10,14 +10,14 @@ const READ = 'BOOKS_RETRIEVED';
 // Action creators
 export const addBook = ({ title, author }) => ({
   type: ADD,
-  id: uuid(),
+  item_id: uuid(),
   title,
   author,
 });
 
-export const removeBook = (id) => ({
+export const removeBook = (item_id) => ({
   type: REMOVE,
-  id,
+  item_id,
 });
 
 export const readBooks = (books) => ({
@@ -25,22 +25,11 @@ export const readBooks = (books) => ({
   books,
 });
 
-const getFromAction = ({ id, title, author }) => ({
-  id, title, author,
+const getFromAction = ({ title, author }) => ({
+  title, author,
 });
 
-const booksReducer = (state = [
-  {
-    id: 1,
-    title: 'book 1',
-    author: 'author 1',
-  },
-  {
-    id: 2,
-    title: 'book 2',
-    author: 'author 2',
-  },
-], action) => {
+const booksReducer = (state = [], action) => {
   switch (action.type) {
     case ADD:
       return [
@@ -48,7 +37,7 @@ const booksReducer = (state = [
         getFromAction(action),
       ];
     case REMOVE:
-      return state.filter((book) => book.id !== action.id);
+      return state.filter((book) => book.item_id !== action.item_id);
 
     case READ:
       return action.books;
@@ -60,8 +49,31 @@ const booksReducer = (state = [
 
 export const fetchBooks = () => async (dispatch) => {
   await fetch(URL)
-    .then((res) = res.json())
-    .then((book) => console.log(books))
+    .then((res) => res.json())
+    .then((books) => {
+      const BookList = [];
+      Object.keys(books).forEach((key) => {
+        BookList.push({
+          item_id: key,
+          title: books[key][0].title,
+          author: books[key][0].author,
+          category: books[key][0].category
+        });
+      });
+      dispatch(readBooks(BookList));
+    })
 }
+
+export const postBook = async (book) => {
+  await fetch(URL, {
+    method: 'POST',
+    body: JSON.stringify(book),
+    headers: {
+      'Content-type': 'application/json; charset=UTF-8',
+    },
+})
+.then(() => dispatch(addBook(book)));
+}
+
 
 export default booksReducer;

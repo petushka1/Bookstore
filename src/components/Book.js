@@ -4,11 +4,11 @@ import { removeBook } from '../redux/books/books';
 import styles from './Book.module.css';
 
 const Book = (props) => {
-  const { id, title, author } = props;
+  const { item_id, title, author } = props;
   const dispatch = useDispatch();
 
   const handleRemoveBook = () => {
-    dispatch(removeBook(id));
+    dispatch(removeBook(item_id));
   };
 
   return (
@@ -27,7 +27,7 @@ const Book = (props) => {
 };
 
 Book.propTypes = {
-  id: PropTypes.number.isRequired,
+  item_id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   author: PropTypes.string.isRequired,
 };

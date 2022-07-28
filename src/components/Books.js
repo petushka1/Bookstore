@@ -12,10 +12,10 @@ const Books = (props) => {
         <div className={styles.bookList}>
           {BookList.map((book) => (
             <Book
-              key={book.id}
+              key={book.item_id}
               author={book.author}
               title={book.title}
-              id={book.id}
+              id={book.item_id}
             />
           ))}
         </div>
