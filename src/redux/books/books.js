@@ -1,5 +1,4 @@
-import uuid from 'react-uuid';
-
+/* eslint-disable camelcase */
 const URL = 'https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/ewYk4YjZVq8pYtMAfktj/books';
 
 // action types
@@ -8,9 +7,11 @@ const REMOVE = 'BOOK_REMOVED';
 const READ = 'BOOKS_RETRIEVED';
 
 // Action creators
-export const addBook = ({ title, author, category }) => ({
+export const addBook = ({
+  item_id, title, author, category,
+}) => ({
   type: ADD,
-  item_id: uuid(),
+  item_id,
   title,
   author,
   category,
@@ -26,8 +27,10 @@ export const readBooks = (books) => ({
   books,
 });
 
-const getFromAction = ({ item_id, title, author, category }) => ({
-  item_id, title, author, category
+const getFromAction = ({
+  item_id, title, author, category,
+}) => ({
+  item_id, title, author, category,
 });
 
 const booksReducer = (state = [], action) => {
@@ -58,12 +61,12 @@ export const fetchBooks = () => async (dispatch) => {
           item_id: key,
           title: books[key][0].title,
           author: books[key][0].author,
-          category: books[key][0].category
+          category: books[key][0].category,
         });
       });
       dispatch(readBooks(BookList));
-    })
-}
+    });
+};
 
 export const postBook = (book) => async (dispatch) => {
   await fetch(URL, {
@@ -75,6 +78,18 @@ export const postBook = (book) => async (dispatch) => {
   })
     .then(() => {
       dispatch(addBook(book));
+    });
+};
+
+export const deleteBook = (id) => async (dispatch) => {
+  await fetch(`${URL}/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-type': 'application/json; charset=UTF-8',
+    },
+  })
+    .then(() => {
+      dispatch(removeBook(id));
     });
 };
 

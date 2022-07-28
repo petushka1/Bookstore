@@ -1,6 +1,7 @@
+/* eslint-disable camelcase */
 import { PropTypes } from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { removeBook } from '../redux/books/books';
+import { deleteBook } from '../redux/books/books';
 import styles from './Book.module.css';
 
 const Book = (props) => {
@@ -8,7 +9,7 @@ const Book = (props) => {
   const dispatch = useDispatch();
 
   const handleRemoveBook = () => {
-    dispatch(removeBook(item_id));
+    dispatch(deleteBook(item_id));
   };
 
   return (

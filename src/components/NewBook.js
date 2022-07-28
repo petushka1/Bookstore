@@ -1,10 +1,10 @@
+import uuid from 'react-uuid';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { postBook } from '../redux/books/books';
 
 const NewBook = () => {
   const dispatch = useDispatch();
-
   const [book, setBook] = useState({
     title: '',
     author: '',
@@ -21,8 +21,10 @@ const NewBook = () => {
 
   const submit = (e) => {
     e.preventDefault();
-    if (book.title && book.author) {
+    const id = uuid();
+    if (book.title && book.author && book.category) {
       const newBook = {
+        item_id: id,
         title: book.title,
         author: book.author,
         category: book.category,

@@ -4,7 +4,6 @@ import { Provider } from 'react-redux';
 import bookStore from './redux/configureStore';
 import './index.css';
 import App from './App';
-import fetchBooks from './redux/books/books'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -14,7 +13,3 @@ root.render(
     </Provider>
   </React.StrictMode>,
 );
-
-const getBooks = async () => {
-  return await console.log(fetchBooks());
-}
