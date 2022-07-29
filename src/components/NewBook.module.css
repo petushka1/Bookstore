@@ -1,7 +1,13 @@
-.categories {
-  background-color: #fff;
-  padding: 2rem 9.188rem 1.625rem 1.688rem;
+.newBook {
   margin: 3rem 6.25rem;
+}
+
+.form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 20px;
 }
 
 .newBookBtn {
@@ -17,4 +23,13 @@
   letter-spacing: 0.5px;
   text-align: center;
   color: #fff;
+}
+
+.input {
+  flex: 1;
+  margin: 0;
+  padding: 0.813rem 0 0.813rem 10px;
+  border-radius: 4px;
+  border: solid 1px #e8e8e8;
+  background-color: #fff;
 }

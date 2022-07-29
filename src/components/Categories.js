@@ -16,7 +16,7 @@ const Categories = ({ Categories }) => {
         <p>
           {Categories}
         </p>
-        <button type="button" onClick={() => check()}>Check status</button>
+        <button className={styles.newBookBtn} type="button" onClick={() => check()}>Check status</button>
       </main>
     </>
 
