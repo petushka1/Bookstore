@@ -4,14 +4,14 @@ import styles from './Header.module.css';
 
 const Header = () => (
   <header className={styles.header}>
-    <h1>Bookstore CMS</h1>
+    <h1 className={styles.heading}>Bookstore CMS</h1>
     <nav>
-      <ul>
+      <ul className={styles.nav}>
         <li>
-          <Link to="/">Books</Link>
+          <Link to="/" className={styles.navItem}>BOOKS</Link>
         </li>
         <li>
-          <Link to="/categories">Categories</Link>
+          <Link to="/categories" className={styles.navItem}>CATEGORIES</Link>
         </li>
       </ul>
     </nav>
