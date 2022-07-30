@@ -13,6 +13,7 @@ Book Store application built with React and Redux in line with Microverse learni
 - webpack
 - babel
 
+## [Live version](https://bookstore-project-microverse.herokuapp.com/)
 
 ## Getting Started
 
